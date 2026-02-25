@@ -1,17 +1,205 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciberseguridad - Ing. Soto</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background: #0f2027;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color:white;
+    scroll-behavior:smooth;
+}
+
+header{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    background: radial-gradient(circle at center, rgba(0,255,170,0.1), transparent 70%);
+}
+
+header h1{
+    font-family: 'Orbitron', sans-serif;
+    font-size:3rem;
+    color:#00ffaa;
+    text-shadow:0 0 20px #00ffaa;
+}
+
+header p{
+    margin-top:15px;
+    font-size:1.2rem;
+    opacity:0.9;
+}
+
+button{
+    margin-top:30px;
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    background:#00ffaa;
+    color:#000;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#00cc88;
+    transform:scale(1.05);
+}
+
+section{
+    padding:80px 10%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:2rem;
+    color:#00ffaa;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    border-radius:15px;
+    padding:25px;
+    transition:0.4s;
+    border:1px solid rgba(0,255,170,0.2);
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 20px rgba(0,255,170,0.5);
+}
+
+.card h3{
+    margin-bottom:10px;
+    color:#00ffaa;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    background:rgba(0,0,0,0.4);
+    margin-top:50px;
+}
+
+.fade-in{
+    opacity:0;
+    transform:translateY(20px);
+    transition:1s;
+}
+
+.fade-in.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.highlight{
+    color:#00ffaa;
+    font-weight:bold;
+}
+</style>
 </head>
 
 <body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
-</body>
 
+<header>
+    <h1>CIBERSEGURIDAD</h1>
+    <p>Curso impartido por el <span class="highlight">Ing. Soto</span></p>
+    <button onclick="scrollToSection()">Explorar</button>
+</header>
+
+<section id="contenido">
+    <h2 class="section-title fade-in">¿Qué aprenderás?</h2>
+    <div class="cards">
+
+        <div class="card fade-in">
+            <h3>🔐 Seguridad en Redes</h3>
+            <p>Protección contra ataques como phishing, malware y ataques DDoS.</p>
+        </div>
+
+        <div class="card fade-in">
+            <h3>🛡️ Ética Hacker</h3>
+            <p>Uso responsable del conocimiento para fortalecer sistemas.</p>
+        </div>
+
+        <div class="card fade-in">
+            <h3>💻 Pentesting</h3>
+            <p>Pruebas de penetración para detectar vulnerabilidades.</p>
+        </div>
+
+        <div class="card fade-in">
+            <h3>🔎 Análisis Forense</h3>
+            <p>Investigación digital para rastrear incidentes de seguridad.</p>
+        </div>
+
+    </div>
+</section>
+
+<section>
+    <h2 class="section-title fade-in">Sobre el Curso</h2>
+    <div class="card fade-in">
+        <p>
+            El curso de Ciberseguridad impartido por el <span class="highlight">Ing. Soto</span> 
+            está diseñado para desarrollar habilidades prácticas en protección de sistemas, 
+            análisis de amenazas y defensa digital.
+            Se combinan fundamentos teóricos con prácticas reales en laboratorio.
+        </p>
+    </div>
+</section>
+
+<footer>
+    © 2026 Curso de Ciberseguridad - Ing. Soto
+</footer>
+
+<script>
+function scrollToSection(){
+    document.getElementById("contenido").scrollIntoView({behavior:"smooth"});
+}
+
+// Animación al hacer scroll
+const faders = document.querySelectorAll('.fade-in');
+
+const appearOptions = {
+    threshold: 0.3
+};
+
+const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll){
+    entries.forEach(entry => {
+        if(!entry.isIntersecting){
+            return;
+        } else {
+            entry.target.classList.add("visible");
+            appearOnScroll.unobserve(entry.target);
+        }
+    });
+}, appearOptions);
+
+faders.forEach(fader => {
+    appearOnScroll.observe(fader);
+});
+</script>
+
+</body>
 </html>
